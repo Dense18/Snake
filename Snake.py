@@ -55,19 +55,40 @@ class Snake:
             self.body[0][0] += 1 * self.width
 
     def grow(self):
-        self.length += 1
 
         tail = self.body[len(self.body) - 1][0], self.body[len(self.body) - 1][1] ##x, y
-        if (self.dir == SNAKE_UP):
-            self.body.append([ tail[0], tail[1] - self.height ] )
-        elif self.dir == SNAKE_DOWN:
-            self.body.append([ tail[0], tail[1] + self.height ] )
-        elif self.dir == SNAKE_LEFT:
-            self.body.append([ tail[0] - self.width, tail[1] ] )
-        elif self.dir == SNAKE_RIGHT:
-            self.body.append([ tail[0] + self.width, tail[1] ] )
+        if (self.length == 1):
+            if (self.dir == SNAKE_DOWN):
+                self.body.append([ tail[0], tail[1] - self.height ] )
+            elif self.dir == SNAKE_UP:
+                self.body.append([ tail[0], tail[1] + self.height ] )
+            elif self.dir == SNAKE_RIGHT:
+                self.body.append([ tail[0] - self.width, tail[1] ] )
+            elif self.dir == SNAKE_LEFT:
+                self.body.append([ tail[0] + self.width, tail[1] ] )
         
-    
+        else:
+            tail2 = self.body[len(self.body) - 2][0], self.body[len(self.body) - 2][1]
+            if (tail2[1] > tail[1] and tail[0] == tail2[0]): ##DOWN
+                self.body.append([ tail[0], tail[1] - self.height ] )
+            elif (tail[1] > tail2[1] and tail[0] == tail2[0]): ## UP
+                self.body.append([ tail[0], tail[1] + self.height ] )
+            elif (tail2[0] > tail[0] and tail[1] == tail2[1]): ##RIGHT
+                self.body.append([ tail[0] - self.width, tail[1] ] )
+            elif (tail[0] > tail2[0] and tail[1] == tail2[1]): ##LEFT
+                self.body.append([ tail[0] + self.width, tail[1] ] )
+        
+        self.length += 1
+
+        # if (self.dir == SNAKE_DOWN):
+        #     self.body.append([ tail[0], tail[1] - self.height ] )
+        # elif self.dir == SNAKE_UP:
+        #     self.body.append([ tail[0], tail[1] + self.height ] )
+        # elif self.dir == SNAKE_RIGHT:
+        #     self.body.append([ tail[0] - self.width, tail[1] ] )
+        # elif self.dir == SNAKE_LEFT:
+        #     self.body.append([ tail[0] + self.width, tail[1] ] )
+
     def isSelfCollided(self):
         for i in range(1, self.length):
             if self.body[0] == self.body[i]:

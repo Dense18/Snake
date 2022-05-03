@@ -53,7 +53,7 @@ def main():
 
     
         draw(WIN, snake, food)
-        clock.tick(10)
+        clock.tick(FPS)
 
     pygame.quit()
 
@@ -67,9 +67,9 @@ def draw_grid(win, row, col, width, height):
             pygame.draw.line(win, GREY, (j * gap_col,0), (j * gap_col, height))
 
 def handle_collision(snake, food):
-    if snake.body[0][0] < 0 or snake.body[0][0] > WIDTH:
+    if snake.body[0][0] < 0 or snake.body[0][0] + snake.width > WIDTH:
         return 1
-    if snake.body[0][1] < 0 or snake.body[0][1] > HEIGHT:
+    if snake.body[0][1] < 0 or snake.body[0][1] + snake.height > HEIGHT:
         return 1
     if snake.isSelfCollided():
         return 1
@@ -83,8 +83,8 @@ def handle_collision(snake, food):
 def draw(win, snake, food):
     win.fill(BLACK)
 
-    snake.draw(win)
     food.draw(win)
+    snake.draw(win)
     draw_grid(win, GRID_ROW,GRID_COL, WIDTH, HEIGHT)
 
     pygame.display.update()
