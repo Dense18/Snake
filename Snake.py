@@ -79,16 +79,7 @@ class Snake:
                 self.body.append([ tail[0] + self.width, tail[1] ] )
         
         self.length += 1
-
-        # if (self.dir == SNAKE_DOWN):
-        #     self.body.append([ tail[0], tail[1] - self.height ] )
-        # elif self.dir == SNAKE_UP:
-        #     self.body.append([ tail[0], tail[1] + self.height ] )
-        # elif self.dir == SNAKE_RIGHT:
-        #     self.body.append([ tail[0] - self.width, tail[1] ] )
-        # elif self.dir == SNAKE_LEFT:
-        #     self.body.append([ tail[0] + self.width, tail[1] ] )
-
+        
     def isSelfCollided(self):
         for i in range(1, self.length):
             if self.body[0] == self.body[i]:

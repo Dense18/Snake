@@ -33,13 +33,13 @@ class Pong:
                     running = False
             
             key_pressed = pygame.key.get_pressed()
-            if key_pressed[pygame.K_UP]:
+            if key_pressed[pygame.K_UP] and not self.willSelfCollide(SNAKE_UP):
                 self.snake.set_direction(SNAKE_UP)
-            elif key_pressed[pygame.K_DOWN]:
+            elif key_pressed[pygame.K_DOWN] and not self.willSelfCollide(SNAKE_DOWN):
                 self.snake.set_direction(SNAKE_DOWN)
-            elif key_pressed[pygame.K_LEFT]:
+            elif key_pressed[pygame.K_LEFT] and not self.willSelfCollide(SNAKE_LEFT):
                 self.snake.set_direction(SNAKE_LEFT)
-            elif key_pressed[pygame.K_RIGHT]:
+            elif key_pressed[pygame.K_RIGHT] and not self.willSelfCollide(SNAKE_RIGHT):
                 self.snake.set_direction(SNAKE_RIGHT)
             
             self.snake.move()
@@ -62,6 +62,26 @@ class Pong:
             pygame.draw.line(self.win, GREY, (0, i * gap_row), (self.win_width, i * gap_row))
             for j in range(self.grid_col):
                 pygame.draw.line(self.win, GREY, (j * gap_col,0), (j * gap_col, self.win_height))
+
+    def willSelfCollide(self, dir):
+        if (self.snake.length > 1):
+            head = self.snake.body[0]
+            neck = self.snake.body[1]
+
+            if dir == SNAKE_UP:
+                if head[1] - self.block_size == neck[1]:
+                    return True
+            if dir == SNAKE_DOWN:
+                if head[1] + self.block_size == neck[1]:
+                    return True
+            if dir == SNAKE_LEFT:
+                if head[0] - self.block_size == neck[0]:
+                    return True
+            if dir == SNAKE_RIGHT:
+                if head[0] + self.block_size == neck[0]:
+                    return True
+
+        return False
 
     def handle_collision(self):
         if self.snake.body[0][0] < 0 or self.snake.body[0][0] + self.snake.width > self.win_width:
