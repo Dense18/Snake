@@ -5,7 +5,7 @@ from Food import Food
 from colors import *
 from Snake import *
 
-class Pong:
+class Game:
     def __init__(self, win, win_width, win_height, block_size, fps = 10):
         self.win = win
         self.win_width = win_width

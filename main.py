@@ -1,5 +1,5 @@
 import pygame
-from Pong import *
+from Game import *
 from settings import *
 
 pygame.init()
@@ -13,7 +13,7 @@ GRID_ROW = HEIGHT // BLOCK_SIZE
 GRID_COL = WIDTH // BLOCK_SIZE
 
 def main():
-    game = Pong(WIN, WIDTH, HEIGHT, BLOCK_SIZE)
+    game = Game(WIN, WIDTH, HEIGHT, BLOCK_SIZE)
     game.run()
     print("Thank you for playing!")
 
